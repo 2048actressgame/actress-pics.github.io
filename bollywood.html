@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Professional Responsive Image Boxes</title>
+  <title>Responsive Image Boxes with Tooltip and Modal</title>
   <style>
     * {
       margin: 0;
@@ -53,6 +53,7 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .box:hover img {
@@ -70,49 +71,101 @@
         width: calc(50% - 20px);
       }
     }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Box 1 -->
     <div class="box-container">
-      <a href="https://ibb.co/0XnYYN7">
-        <div class="box">
-          <img src="https://i.ibb.co/FWh88vr/e4d71a44c3d2473e9cbc5ae7309df391.png" alt="Image 1">
-        </div>
-      </a>
+      <div class="box">
+        <img src="https://i.ibb.co/FWh88vr/e4d71a44c3d2473e9cbc5ae7309df391.png" alt="Beautiful Design 1" title="Beautiful Design 1">
+      </div>
       <div class="text-box">Beautiful Design 1</div>
     </div>
 
     <!-- Box 2 -->
     <div class="box-container">
-      <a href="https://ibb.co/25HPBZk">
-        <div class="box">
-          <img src="https://i.ibb.co/GFNkjH5/f27b0258014845739706335a7aaae2ff.png" alt="Image 2">
-        </div>
-      </a>
+      <div class="box">
+        <img src="https://i.ibb.co/GFNkjH5/f27b0258014845739706335a7aaae2ff.png" alt="Elegant Look 2" title="Elegant Look 2">
+      </div>
       <div class="text-box">Elegant Look 2</div>
     </div>
 
     <!-- Box 3 -->
     <div class="box-container">
-      <a href="https://ibb.co/ssYrTg5">
-        <div class="box">
-          <img src="https://i.ibb.co/MP0Lzg8/898486ff2dfe4ff19f492b690644e737.png" alt="Image 3">
-        </div>
-      </a>
+      <div class="box">
+        <img src="https://i.ibb.co/MP0Lzg8/898486ff2dfe4ff19f492b690644e737.png" alt="Stylish View 3" title="Stylish View 3">
+      </div>
       <div class="text-box">Stylish View 3</div>
     </div>
 
     <!-- Box 4 -->
     <div class="box-container">
-      <a href="https://ibb.co/Mf3ZPTz">
-        <div class="box">
-          <img src="https://i.ibb.co/dtzjk9N/d748362e88a4473294ed552269eb11cc.png" alt="Image 4">
-        </div>
-      </a>
+      <div class="box">
+        <img src="https://i.ibb.co/dtzjk9N/d748362e88a4473294ed552269eb11cc.png" alt="Modern Feel 4" title="Modern Feel 4">
+      </div>
       <div class="text-box">Modern Feel 4</div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal" id="imageModal">
+    <span class="modal-close" id="closeModal">&times;</span>
+    <img src="" alt="">
+  </div>
+
+  <script>
+    // JavaScript for modal functionality
+    const modal = document.getElementById('imageModal');
+    const modalImage = modal.querySelector('img');
+    const closeModal = document.getElementById('closeModal');
+
+    document.querySelectorAll('.box img').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImage.src = img.src;
+        modalImage.alt = img.alt;
+        modal.style.display = 'flex';
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
