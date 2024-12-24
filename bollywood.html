@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Image Boxes with Tooltip and Modal</title>
+  <title>Responsive Image Boxes with Tooltip, Modal, and Download</title>
   <style>
     * {
       margin: 0;
@@ -84,12 +84,14 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      flex-direction: column;
     }
 
     .modal img {
       max-width: 90%;
-      max-height: 90%;
+      max-height: 70%;
       border-radius: 10px;
+      margin-bottom: 10px;
     }
 
     .modal-close {
@@ -99,6 +101,21 @@
       font-size: 24px;
       color: #fff;
       cursor: pointer;
+    }
+
+    .modal-download {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .modal-download:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -141,19 +158,22 @@
   <div class="modal" id="imageModal">
     <span class="modal-close" id="closeModal">&times;</span>
     <img src="" alt="">
+    <a class="modal-download" id="downloadButton" download>Download</a>
   </div>
 
   <script>
-    // JavaScript for modal functionality
+    // JavaScript for modal functionality with download
     const modal = document.getElementById('imageModal');
     const modalImage = modal.querySelector('img');
     const closeModal = document.getElementById('closeModal');
+    const downloadButton = document.getElementById('downloadButton');
 
     document.querySelectorAll('.box img').forEach(img => {
       img.addEventListener('click', () => {
-        modalImage.src = img.src;
-        modalImage.alt = img.alt;
-        modal.style.display = 'flex';
+        modalImage.src = img.src;  // Set modal image source
+        modalImage.alt = img.alt;  // Set modal image alt
+        downloadButton.href = img.src;  // Set download button link
+        modal.style.display = 'flex';  // Show modal
       });
     });
 
