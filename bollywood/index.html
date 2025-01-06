@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery with Download Button</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="gallery-container">
+    <!-- Image card example -->
+    <div class="image-card">
+      <img src="https://i.ibb.co/zm4JBGD/472001202-1371281354281233-8560331286696885221-n.jpg" alt="Image 1">
+      <button class="download-btn" onclick="showPopup(this)">Download</button>
+    </div>
+    <div class="image-card">
+      <img src="https://i.ibb.co/5BKcDxP/471806955-382090724967543-2436469250522745737-n.jpg" alt="Image 2">
+      <button class="download-btn" onclick="showPopup(this)">Download</button>
+    </div>
+    <!-- Add more image cards as needed -->
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <img id="popup-img" src="" alt="Popup Image">
+      <p id="countdown-text" class="hidden"></p>
+      <button id="popup-download-btn" onclick="startDownload()">Download</button>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
