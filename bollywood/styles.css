@@ -61,8 +61,8 @@ body {
   background: white;
   border-radius: 8px;
   padding: 10px;
-  max-width: 90%; /* Limit width of the popup content */
-  max-height: 90%; /* Limit height of the popup content */
+  max-width: 40%; /* Limit width of the popup content */
+  max-height: 40%; /* Limit height of the popup content */
   overflow: visible; /* Ensure the image overflows the container */
   text-align: center;
 }
