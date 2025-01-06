@@ -68,8 +68,8 @@ body {
 }
 
 .popup-content img {
-  width: auto; /* Retain original aspect ratio */
-  height: auto; /* Retain original aspect ratio */
+  width: 40%; /* Retain original aspect ratio */
+  height: 40%; /* Retain original aspect ratio */
   max-width: none; /* Do not restrict width */
   max-height: none; /* Do not restrict height */
   border-radius: 8px;
