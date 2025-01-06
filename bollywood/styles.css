@@ -49,6 +49,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .popup.hidden {
@@ -56,19 +57,27 @@ body {
 }
 
 .popup-content {
+  position: relative;
   background: white;
-  padding: 20px;
   border-radius: 8px;
+  padding: 10px;
+  max-width: 90%; /* Limit width of the popup content */
+  max-height: 90%; /* Limit height of the popup content */
+  overflow: visible; /* Ensure the image overflows the container */
   text-align: center;
 }
 
 .popup-content img {
-  max-width: 100%;
+  width: auto; /* Retain original aspect ratio */
+  height: auto; /* Retain original aspect ratio */
+  max-width: none; /* Do not restrict width */
+  max-height: none; /* Do not restrict height */
   border-radius: 8px;
 }
 
-#popup-download-btn {
-  margin-top: 10px;
+#popup-download-btn,
+.popup-content button {
+  margin-top: 15px;
   background-color: red;
   color: white;
   border: none;
@@ -77,6 +86,8 @@ body {
   cursor: pointer;
 }
 
-#popup-download-btn:hover {
+#popup-download-btn:hover,
+.popup-content button:hover {
   background-color: darkred;
 }
+
