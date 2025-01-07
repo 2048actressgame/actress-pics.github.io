@@ -1,53 +1,57 @@
-let downloadTimer;
+<script>
+  // JavaScript for modal functionality with timer-based download
+  const modal = document.getElementById('imageModal');
+  const modalImage = modal.querySelector('img');
+  const closeModal = document.getElementById('closeModal');
+  const downloadButton = document.getElementById('downloadButton');
+  const countdownText = document.getElementById('countdownText');
 
-function showPopup(button) {
-  const imageSrc = button.previousElementSibling.src; // Get image source
-  const popup = document.getElementById("popup");
-  const popupImg = document.getElementById("popup-img");
+  let countdownTimer;
 
-  popupImg.src = imageSrc; // Set popup image
-  popup.classList.remove("hidden"); // Show popup
-}
+  document.querySelectorAll('.box img').forEach(img => {
+    img.addEventListener('click', () => {
+      modalImage.src = img.src; // Set modal image source
+      modalImage.alt = img.alt; // Set modal image alt
+      downloadButton.dataset.image = img.src; // Save image source in data attribute
+      modal.style.display = 'flex'; // Show modal
+      countdownText.style.display = 'none'; // Hide countdown text initially
+      downloadButton.disabled = false; // Re-enable button
+    });
+  });
 
-function closePopup() {
-  const popup = document.getElementById("popup");
-  const countdownText = document.getElementById("countdown-text");
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none'; // Hide modal
+    clearTimeout(countdownTimer); // Clear any active countdown
+  });
 
-  clearTimeout(downloadTimer);
-  countdownText.classList.add("hidden");
-  countdownText.textContent = "";
-  popup.classList.add("hidden"); // Hide popup
-}
-
-function startDownload() {
-  const countdownText = document.getElementById("countdown-text");
-  const popupDownloadBtn = document.getElementById("popup-download-btn");
-
-  popupDownloadBtn.disabled = true; // Disable button during countdown
-
-  let seconds = 5;
-  countdownText.classList.remove("hidden");
-
-  // Countdown logic
-  downloadTimer = setInterval(() => {
-    countdownText.textContent = `Downloading in ${seconds} seconds...`;
-    seconds--;
-
-    if (seconds < 0) {
-      clearInterval(downloadTimer);
-      downloadImage(); // Initiate download
-      countdownText.textContent = "";
-      popupDownloadBtn.disabled = false; // Re-enable button
-      countdownText.classList.add("hidden");
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      clearTimeout(countdownTimer); // Clear any active countdown
     }
-  }, 1000);
-}
+  });
 
-function downloadImage() {
-  const popupImg = document.getElementById("popup-img");
-  const link = document.createElement("a");
+  downloadButton.addEventListener('click', () => {
+    let secondsLeft = 5;
+    downloadButton.disabled = true; // Disable the button during countdown
+    countdownText.style.display = 'block'; // Show countdown text
 
-  link.href = popupImg.src; // Image source
-  link.download = "image.jpg"; // Download filename
-  link.click();
-}
+    countdownTimer = setInterval(() => {
+      if (secondsLeft > 0) {
+        countdownText.textContent = `Downloading in ${secondsLeft--} seconds...`;
+      } else {
+        clearInterval(countdownTimer);
+        downloadButton.disabled = false;
+        downloadImage(downloadButton.dataset.image); // Trigger download
+        countdownText.style.display = 'none'; // Hide countdown text after download
+      }
+    }, 1000);
+  });
+
+  function downloadImage(imageSrc) {
+    const link = document.createElement('a');
+    link.href = imageSrc;
+    link.download = 'image.jpg'; // Filename for download
+    link.click();
+  }
+</script>
