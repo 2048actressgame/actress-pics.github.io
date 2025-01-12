@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .gallery {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .download-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+        }
+
+        .image-container:hover .download-btn {
+            opacity: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #16a34a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            cursor: pointer;
+        }
+
+        .close-btn, .modal-download-btn {
+            position: absolute;
+            top: -40px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .close-btn {
+            right: 0;
+        }
+
+        .modal-download-btn {
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #22c55e;
+            border-radius: 5px;
+        }
+
+        .modal-download-btn:hover {
+            background-color: #16a34a;
+        }
+
+        .timer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery" id="gallery"></div>
+
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <button class="modal-download-btn" id="modalDownloadBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+            </button>
+            <img src="/placeholder.svg" alt="Modal Image" class="modal-image" id="modalImage">
+            <div class="timer-overlay" id="timerOverlay">
+                Downloading in <span id="countdown">7</span>s...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            "https://i.ibb.co/4VX1ZLK/472535506-1684556342110254-5688901636572304114-n.jpg",
+            "https://i.ibb.co/7KrLFKj/472081877-963090675882315-1309508867102686312-n.jpg",
+            "https://i.ibb.co/0Mt9Vsm/472118404-488959980477048-8769825033847635751-n.jpg",
+            "https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg",
+            "https://i.ibb.co/NmQSFpj/472729378-951862070213823-5819684937258376206-n.jpg",
+            "https://i.ibb.co/r5zvM7H/472115643-1107784063937264-4669810384973237215-n.jpg",
+            "https://i.ibb.co/J285019/472699141-1303419767478695-8740937037825688784-n.jpg",
+            "https://i.ibb.co/7RrPCh8/472480252-568006199459855-6106588305992003446-n.jpg"
+        ];
+
+        const gallery = document.getElementById('gallery');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+        const timerOverlay = document.getElementById('timerOverlay');
+        const countdownElement = document.getElementById('countdown');
+        let downloadTimeout;
+        let currentImageUrl;
+
+        images.forEach(imageUrl => {
+            const container = document.createElement('div');
+            container.className = 'image-container';
+
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.className = 'gallery-image';
+            img.alt = 'Gallery Image';
+
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+            `;
+
+            container.appendChild(img);
+            container.appendChild(downloadBtn);
+            gallery.appendChild(container);
+
+            const showModal = (e) => {
+                modal.style.display = 'flex';
+                modalImage.src = imageUrl;
+                currentImageUrl = imageUrl;
+            };
+
+            img.addEventListener('click', showModal);
+            downloadBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                downloadImage(imageUrl);
+            });
+        });
+
+        function startDownloadTimer() {
+            let countdown = 7;
+            timerOverlay.style.display = 'flex';
+            countdownElement.textContent = countdown;
+
+            const timer = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    downloadImage(currentImageUrl);
+                    timerOverlay.style.display = 'none';
+                    modal.style.display = 'none';
+                }
+            }, 1000);
+
+            downloadTimeout = timer;
+        }
+
+        function downloadImage(url) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = url.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(blobUrl);
+                })
+                .catch(error => console.error('Download failed:', error));
+        }
+
+        modalImage.addEventListener('click', () => {
+            startDownloadTimer();
+        });
+
+        modalDownloadBtn.addEventListener('click', () => {
+            downloadImage(currentImageUrl);
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            modal.style.display = 'none';
+            timerOverlay.style.display = 'none';
+            if (downloadTimeout) {
+                clearTimeout(downloadTimeout);
+            }
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                timerOverlay.style.display = 'none';
+                if (downloadTimeout) {
+                    clearTimeout(downloadTimeout);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
