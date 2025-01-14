@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Website</title>
+    <title>Actress Photo HD</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f8f9fa; color: #212529; }
@@ -32,7 +32,7 @@
     <div class="container">
         <header>
             <nav>
-                <div class="logo">ImageSite</div>
+                <div class="logo">Actress Photo HD</div>
                 <ul class="menu">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Gallery</a></li>
@@ -43,7 +43,7 @@
         </header>
         <main>
             <section class="content">
-                <h2>Recently Published Posts</h2>
+                <h2>Recently Posts</h2>
                 <div class="posts" id="recentPosts">
                     <!-- Posts will be dynamically inserted here -->
                 </div>
@@ -53,8 +53,7 @@
         <aside class="sidebar">
                 <h3>Categories</h3>
                 <ul>
-                                      <li><a href="#">Biography</a></li>
-
+                    <li><a href="#">Biography</a></li>
                     <li><a href="#">Bollywood</a></li>
                     <li><a href="#">Tollywood</a></li>
                     <li><a href="#">Hollywood</a></li>
@@ -72,10 +71,8 @@
             {
                 id: 1,
                 title: "Kajal Agarwal Photos",
-                content: "This is a blog post about Kajal Agarwal photos...",
                 images: [
                     "https://i.ibb.co/rdbB3kG/470918778-2132713413812214-7356323066113906618-n.jpg",
-                    
                 ]
             },
             {
@@ -84,7 +81,6 @@
                 content: "This blog post features HD photos of various actresses...",
                 images: [
                     "https://i.ibb.co/WgWdPrF/katrinakaifhots-20231231-p-3269781595320678964-3-3269781591797394858.jpg",
-                    
                 ]
             },
             {
@@ -93,7 +89,6 @@
                 content: "A collection of long images featuring Dhanashree Verma...",
                 images: [
                     "https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg",
-                    
                 ]
             },
             {
@@ -102,7 +97,6 @@
                 content: "Exploring various forms of abstract art...",
                 images: [
                     "https://i.ibb.co/4VX1ZLK/472535506-1684556342110254-5688901636572304114-n.jpg",
-                    
                 ]
             },
             {
@@ -111,7 +105,6 @@
                 content: "A visual journey through nature's beauty...",
                 images: [
                     "https://i.ibb.co/gmvxNcz/IMG-20240522-102212-577.jpg",
-                    
                 ]
             },
             {
@@ -120,7 +113,6 @@
                 content: "Exploring the principles of minimalist design...",
                 images: [
                     "https://i.ibb.co/FWh88vr/e4d71a44c3d2473e9cbc5ae7309df391.png",
-                    
                 ]
             }
         ];
@@ -134,8 +126,10 @@
                 // Randomly select one image from the post's images array as the thumbnail
                 const randomThumbnail = post.images[Math.floor(Math.random() * post.images.length)];
                 postElement.innerHTML = `
-                    <img src="${randomThumbnail}" alt="${post.title}">
-                    <h3>${post.title}</h3>
+                    <a href="#post-${post.id}" aria-label="View ${post.title}">
+                        <img src="${randomThumbnail}" alt="${post.title}">
+                    </a>
+                    <h3><a href="#post-${post.id}">${post.title}</a></h3>
                 `;
                 postsContainer.appendChild(postElement);
             });
