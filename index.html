@@ -18,7 +18,7 @@
         .content { flex: 1; margin-right: 1rem; }
         .posts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         .post { background: #fff; padding: 0.5rem; border: 1px solid #ddd; text-align: center; }
-        .post img { width: 100%; height: 200px; object-fit: cover; margin-bottom: 0.5rem; }
+        .post img { width: 100%; height: 600px; object-fit: cover; margin-bottom: 0.5rem; }
         .sidebar { width: 300px; background: #e9ecef; padding: 1rem; }
         footer { margin-top: 1rem; }
         @media (max-width: 768px) {
@@ -44,46 +44,104 @@
         <main>
             <section class="content">
                 <h2>Recently Published Posts</h2>
-                <div class="posts" id="recentPosts"></div>
+                <div class="posts" id="recentPosts">
+                    <!-- Posts will be dynamically inserted here -->
+                </div>
             </section>
-            <aside class="sidebar">
+            
+        </main>
+        <aside class="sidebar">
                 <h3>Categories</h3>
                 <ul>
-                    <li><a href="#">Nature</a></li>
-                    <li><a href="#">Urban</a></li>
-                    <li><a href="#">Abstract</a></li>
-                    <li><a href="#">People</a></li>
+                                      <li><a href="#">Biography</a></li>
+
+                    <li><a href="#">Bollywood</a></li>
+                    <li><a href="#">Tollywood</a></li>
+                    <li><a href="#">Hollywood</a></li>
+                    <li><a href="#">Random</a></li>
                 </ul>
             </aside>
-        </main>
         <footer>
             <p>&copy; 2025 ImageSite. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
-        const recentPosts = [
-            { title: "Kajal Agarwal Photos", thumbnail: "https://via.placeholder.com/300x200?text=Kajal+Agarwal" },
-            { title: "Random Actress HD", thumbnail: "https://via.placeholder.com/300x200?text=Actress+HD" },
-            { title: "Dhanashree Verma Long Images", thumbnail: "https://actressphotohd.fun/bollywood/dhanashree-verma-long-photos.html/300x200?text=Dhanashree" },
-            { title: "Abstract Art", thumbnail: "https://via.placeholder.com/300x200?text=Abstract+Art" },
-            { title: "Nature Walk", thumbnail: "https://via.placeholder.com/300x200?text=Nature" },
-            { title: "Minimalist Design", thumbnail: "https://via.placeholder.com/300x200?text=Design" }
+        // Simulated blog post data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Kajal Agarwal Photos",
+                content: "This is a blog post about Kajal Agarwal photos...",
+                images: [
+                    "https://i.ibb.co/rdbB3kG/470918778-2132713413812214-7356323066113906618-n.jpg",
+                    
+                ]
+            },
+            {
+                id: 2,
+                title: "Random Actress HD",
+                content: "This blog post features HD photos of various actresses...",
+                images: [
+                    "https://i.ibb.co/WgWdPrF/katrinakaifhots-20231231-p-3269781595320678964-3-3269781591797394858.jpg",
+                    
+                ]
+            },
+            {
+                id: 3,
+                title: "Dhanashree Verma Long Images",
+                content: "A collection of long images featuring Dhanashree Verma...",
+                images: [
+                    "https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg",
+                    
+                ]
+            },
+            {
+                id: 4,
+                title: "Abstract Art",
+                content: "Exploring various forms of abstract art...",
+                images: [
+                    "https://i.ibb.co/4VX1ZLK/472535506-1684556342110254-5688901636572304114-n.jpg",
+                    
+                ]
+            },
+            {
+                id: 5,
+                title: "Nature Walk",
+                content: "A visual journey through nature's beauty...",
+                images: [
+                    "https://i.ibb.co/gmvxNcz/IMG-20240522-102212-577.jpg",
+                    
+                ]
+            },
+            {
+                id: 6,
+                title: "Minimalist Design",
+                content: "Exploring the principles of minimalist design...",
+                images: [
+                    "https://i.ibb.co/FWh88vr/e4d71a44c3d2473e9cbc5ae7309df391.png",
+                    
+                ]
+            }
         ];
 
+        // Function to fetch recent posts and display them
         function displayRecentPosts() {
             const postsContainer = document.getElementById('recentPosts');
-            recentPosts.forEach(post => {
+            blogPosts.forEach(post => {
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
+                // Randomly select one image from the post's images array as the thumbnail
+                const randomThumbnail = post.images[Math.floor(Math.random() * post.images.length)];
                 postElement.innerHTML = `
-                    <img src="${post.thumbnail}" alt="${post.title}">
+                    <img src="${randomThumbnail}" alt="${post.title}">
                     <h3>${post.title}</h3>
                 `;
                 postsContainer.appendChild(postElement);
             });
         }
 
+        // Call the function when the page loads
         window.onload = displayRecentPosts;
     </script>
 </body>
