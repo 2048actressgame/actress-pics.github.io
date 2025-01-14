@@ -68,72 +68,55 @@
     <script>
         // Simulated blog post data
         const blogPosts = [
-            {
-                id: 1,
-                title: "Kajal Agarwal Photos",
-                images: [
-                    "https://i.ibb.co/rdbB3kG/470918778-2132713413812214-7356323066113906618-n.jpg",
-                ]
-            },
-            {
-                id: 2,
-                title: "Random Actress HD",
-                content: "This blog post features HD photos of various actresses...",
-                images: [
-                    "https://i.ibb.co/WgWdPrF/katrinakaifhots-20231231-p-3269781595320678964-3-3269781591797394858.jpg",
-                ]
-            },
-            {
-                id: 3,
-                title: "Dhanashree Verma Long Images",
-                content: "A collection of long images featuring Dhanashree Verma...",
-                images: [
-                    "https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg",
-                ]
-            },
-            {
-                id: 4,
-                title: "Abstract Art",
-                content: "Exploring various forms of abstract art...",
-                images: [
-                    "https://i.ibb.co/4VX1ZLK/472535506-1684556342110254-5688901636572304114-n.jpg",
-                ]
-            },
-            {
-                id: 5,
-                title: "Nature Walk",
-                content: "A visual journey through nature's beauty...",
-                images: [
-                    "https://i.ibb.co/gmvxNcz/IMG-20240522-102212-577.jpg",
-                ]
-            },
-            {
-                id: 6,
-                title: "Minimalist Design",
-                content: "Exploring the principles of minimalist design...",
-                images: [
-                    "https://i.ibb.co/FWh88vr/e4d71a44c3d2473e9cbc5ae7309df391.png",
-                ]
-            }
-        ];
+          {
+            id: 5,
+            title: "Deepika Padukone",
+            images:["https://i.ibb.co/nD0jnkK/471665076-2468632830001369-7686528622949281870-n.jpg"],
+            link: "https://actressphotohd.fun/bollywood/deepika-padukone-hd.html"
+          },
+    {
+        id: 1,
+        title: "Kajal Agarwal Photos",
+        images: ["https://i.ibb.co/rdbB3kG/470918778-2132713413812214-7356323066113906618-n.jpg"],
+        link: "https://actressphotohd.fun/bollywood/kajal-agarwal-long-hd-images.html"
+    },
+    {
+        id: 2,
+        title: "Random Actress HD",
+        images: ["https://i.ibb.co/WgWdPrF/katrinakaifhots-20231231-p-3269781595320678964-3-3269781591797394858.jpg"],
+        link: "https://actressphotohd.fun/bollywood/random-actress-pic.html"
+    },
+    {
+        id: 3,
+        title: "Dhanashree Verma Long Images",
+        images: ["https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg"],
+        link: "https://actressphotohd.fun/bollywood/dhanashree-verma-long-photos.html"
+    },
+    {
+      id: 4,
+      title: "Disha Patani Hot Images",
+      images: ["https://i.ibb.co/fNDPtTk/9919ec045c924803a6b16e3cdc297cc6.png"],
+      link: "https://actressphotohd.fun/bollywood/disha-patani-long-photos.html"
+    }
+    // ... (add links for other posts)
+];
 
-        // Function to fetch recent posts and display them
         function displayRecentPosts() {
-            const postsContainer = document.getElementById('recentPosts');
-            blogPosts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                // Randomly select one image from the post's images array as the thumbnail
-                const randomThumbnail = post.images[Math.floor(Math.random() * post.images.length)];
-                postElement.innerHTML = `
-                    <a href="#post-${post.id}" aria-label="View ${post.title}">
-                        <img src="${randomThumbnail}" alt="${post.title}">
-                    </a>
-                    <h3><a href="#post-${post.id}">${post.title}</a></h3>
-                `;
-                postsContainer.appendChild(postElement);
-            });
-        }
+    const postsContainer = document.getElementById('recentPosts');
+    blogPosts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.className = 'post';
+        const randomThumbnail = post.images[Math.floor(Math.random() * post.images.length)];
+        postElement.innerHTML = `
+            <a href="${post.link}" aria-label="View ${post.title}">
+                <img src="${randomThumbnail}" alt="${post.title}">
+            </a>
+            <h3><a href="${post.link}">${post.title}</a></h3>
+        `;
+        postsContainer.appendChild(postElement);
+    });
+}
+
 
         // Call the function when the page loads
         window.onload = displayRecentPosts;
