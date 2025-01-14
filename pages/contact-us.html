@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+nav {
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+        .main-content {
+  flex: 3;
+  padding: 20px;
+}
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+        article {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+        article h2 {
+  margin-top: 0;
+}
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        p {
+            text-align: center;
+            font-size: 1.1em;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .email {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="container">
+        <article>
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Please fill out the form below or reach out via email.</p>
+        <form action="mailto:fayazshaikh030303@gmail.com" method="POST">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="email">
+            Or email us directly at: <a href="mailto:fayazshaikh030303@gmail.com">fayazshaikh030303@gmail.com</a>
+        </div>
+    </div>
+</article>
+    <div id="footer"></div> <!-- Footer will load here -->
+
+  <script src="script.js"></script>
+</body>
+</html>
