@@ -1,6 +1,6 @@
 # Actress Photo HD
 
-Welcome to the **Actress Photo HD** repository! This project is designed to showcase high-definition photos of popular actresses. Access the live website at [https://actressphotoshd.news/](https://actressphotoshd.news/).
+Welcome to the **Actress Photo HD** repository! This project is designed to showcase high-definition photos of popular actresses. Access the live website at [https://actressphotoshd.fun/](https://actressphotoshd.fun/).
 
 ---
 
@@ -15,7 +15,7 @@ The **Actress Photo HD** project brings together a curated collection of stunnin
 ---
 
 ## 🚀 Live Demo
-Check out the live site here: [https://actressphotoshd.news/](https://actressphotoshd.news/)
+Check out the live site here: [https://actressphotoshd.fun/](https://actressphotoshd.fun/)
 
 ---
 
@@ -47,7 +47,7 @@ We welcome contributions! Here's how you can help:
 4. Push to the branch (`git push origin feature-name`).
 5. Open a pull request.
 
-Feel free to share ideas, report bugs, or suggest enhancements via the [Issues](https://actressphotoshd.news/contact-us.html) section.
+Feel free to share ideas, report bugs, or suggest enhancements via the [Issues](https://actressphotoshd.fun/contact-us.html) section.
 
 ---
 
