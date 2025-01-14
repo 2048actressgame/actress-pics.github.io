@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Gallery with Download</title>
+      <link rel="stylesheet" href="styles.css">
+
     <style>
         * {
             margin: 0;
@@ -145,7 +147,10 @@
     </style>
 </head>
 <body>
+    <div id="header"></div>
     <div class="gallery" id="gallery"></div>
+           <article>
+
 
     <div class="modal" id="imageModal">
         <div class="modal-content">
@@ -164,7 +169,10 @@
             </div>
         </div>
     </div>
+</article>
+    <div id="footer"></div> <!-- Footer will load here -->
 
+  <script src="script.js"></script>
     <script>
         const images = [
             "https://i.ibb.co/0fXrFJz/471665076-2468632830001369-7686528622949281870-n.jpg",
