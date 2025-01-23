@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deepika Padukone HD Images: Explore stunning high-definition photos of Bollywood's iconic actress, Deepika Padukone. Perfect for fans and admirers.">
+<meta name="keywords" content="Deepika Padukone, Deepika Padukone HD Images, Bollywood Actress Photos, Deepika Padukone Wallpapers, Celebrity HD Images">
+<meta property="og:url" content="https://actressphotohd.fun/bollywood/deepika-padukone-hd.html" />
+<meta property="og:title" content="Deepika Padukone HD Images" />
+<meta property="og:site_name" content="Deepika Padukone HD Photos - Stunning Collection" />
+<meta property="og:description" content="Discover the best high-definition photos of Deepika Padukone. Perfect for Bollywood fans looking for quality images of their favorite star.">
+<meta property="og:type" content="website" />
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://actressphotohd.fun/bollywood/deepika-padukone-hd.html">
+
+    <title>Deepika Padukone HD </title>
+      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="styles1.css">
+
+    
+</head>
+<body>
+    <div id="header"></div>
+    <div class="gallery" id="gallery"></div>
+           <article>
+
+
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <button class="modal-download-btn" id="modalDownloadBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+            </button>
+            <img src="/placeholder.svg" alt="Modal Image" class="modal-image" id="modalImage">
+            <div class="timer-overlay" id="timerOverlay">
+                Downloading in <span id="countdown">7</span>s...
+            </div>
+        </div>
+    </div>
+</article>
+    <div id="footer"></div> <!-- Footer will load here -->
+
+  <script src="script.js"></script>
+
+
+  <script>
+    const images = [
+       { url: "https://i.ibb.co/FWh88vr/e4d71a44c3d2473e9cbc5ae7309df391.png", alt: "Disha Patani HD photo" },
+    { url: "https://i.ibb.co/GFNkjH5/f27b0258014845739706335a7aaae2ff.png", alt: "Disha Patani hot pic" },
+    { url: "https://i.ibb.co/MP0Lzg8/898486ff2dfe4ff19f492b690644e737.png", alt: "Disha Patani sexy photo" },
+    { url: "https://i.ibb.co/dtzjk9N/d748362e88a4473294ed552269eb11cc.png", alt: "Disha Patani beautiful photo" },
+    { url: "https://i.ibb.co/QM9ZvyC/221150e0473e4938816946de4f0c09a0.png", alt: "Disha Patani stunning look" },
+    { url: "https://i.ibb.co/sq0BWNs/eaa43b7adc8b4151a576e96da26a1bf9.png", alt: "Disha Patani stylish look" },
+    { url: "https://i.ibb.co/fNDPtTk/9919ec045c924803a6b16e3cdc297cc6.png", alt: "Disha Patani glamorous photo" },
+    { url: "https://i.ibb.co/rkhkfwP/33192c40f1954068a2401d07c071278c.png", alt: "Disha Patani hot look" },
+    { url: "https://i.ibb.co/BCHYWMk/0e5ce143807449aea7d6594220ba27f1.png", alt: "Disha Patani sexy pose" },
+    { url: "https://i.ibb.co/3kphh87/1099a16d492d4314bbd5fdcb1db7a02d.png", alt: "Disha Patani beautiful pic" }
+];
+
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+    const timerOverlay = document.getElementById('timerOverlay');
+    const countdownElement = document.getElementById('countdown');
+    let downloadTimeout;
+    let currentImageUrl;
+
+    images.forEach(image => {
+        const container = document.createElement('div');
+        container.className = 'image-container';
+
+        const img = document.createElement('img');
+        img.src = image.url;
+        img.className = 'gallery-image';
+        img.alt = image.alt; // Add the alt text here
+
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'download-btn';
+        downloadBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download
+        `;
+
+        container.appendChild(img);
+        container.appendChild(downloadBtn);
+        gallery.appendChild(container);
+
+        const showModal = (e) => {
+            modal.style.display = 'flex';
+            modalImage.src = image.url;
+            modalImage.alt = image.alt; // Update modal image alt text
+            currentImageUrl = image.url;
+        };
+
+        img.addEventListener('click', showModal);
+        downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            downloadImage(image.url);
+        });
+    });
+        <script src="script1.js"></script>
+
+        
+    </script>
+</body>
+</html>
