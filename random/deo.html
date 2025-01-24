@@ -3,135 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Actress Photo HD - actressphotohd.fun: Explore a vast collection of high-definition photos of popular actresses from Bollywood and beyond.">
-    <meta name="keywords" content="Actress Photo HD, Bollywood Actress Photos, HD Actress Images, Celebrities Photos, Actress Wallpapers">
-    <meta property="og:url" content="https://actressphotohd.fun/">
-    <meta property="og:title" content="Actress Photo HD">
-    <meta property="og:site_name" content="Actress Photo HD - actressphotohd.fun">
-    <meta property="og:description" content="Discover stunning HD photos of your favorite actresses. Visit actressphotohd.fun for a comprehensive gallery of high-quality images.">
-    <meta property="og:type" content="website">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://actressphotohd.fun/">
     <title>Actress Photo HD</title>
     <style>
-        /* General Styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f8f9fa; color: #212529; }
-        .container { max-width: 1200px; margin: auto; padding: 15px; display: flex; flex-direction: column; }
-        header, footer { background: #e9ecef; padding: 1rem; text-align: center; }
-        main { display: flex; flex-wrap: wrap; margin-top: 1rem; }
-        .content { flex: 1; margin-right: 1rem; }
-        .posts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .post { background: #fff; padding: .5rem; border: 1px solid #ddd; text-align: center; }
-        .post img { width: 100%; height: auto; margin-bottom: .5rem; }
-        .sidebar { width: 300px; background: #e9ecef; padding: 1rem; }
-        footer { margin-top: 1rem; }
-        #socialMediaOverlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.7); color: #fff; justify-content: center; 
-            align-items: center; text-align: center; z-index: 9999; 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
-        #socialMediaOverlay.active { display: flex; }
-        .timer, .redirect-btn { font-size: 20px; padding: 10px 20px; }
-        .redirect-btn { background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .redirect-btn:disabled { background-color: gray; cursor: not-allowed; }
+
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .timer-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .timer-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .timer-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 style="font-size: 1.5rem;">Actress Photo HD</h1>
-        </header>
-
-        <!-- Top Navigation -->
-        <nav>
-            <a href="https://actressphotohd.fun/" class="active">Home</a>
-            <a href="#">Gallery</a>
-            <a href="#">Biography</a>
-            <a href="#">Actress Game</a>
-            <a href="#">Quiz</a>
-        </nav>
-
-        <!-- Main Content -->
-        <main>
-            <section class="content">
-                <h2>Recently Posts</h2>
-                <div class="posts" id="recentPosts"></div>
-            </section>
-            <aside class="sidebar">
-                <h3>Categories</h3>
-                <ul>
-                    <li><a href="#">Biography</a></li>
-                    <li><a href="#">Bollywood</a></li>
-                    <li><a href="#">Tollywood</a></li>
-                    <li><a href="#">Hollywood</a></li>
-                    <li><a href="#">Random</a></li>
-                </ul>
-            </aside>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 ImageSite. All rights reserved.</p>
-        </footer>
+    <div id="main-content">
+        <!-- Normal blog content will appear here -->
     </div>
 
-    <!-- Social Media Timer and Redirect Overlay -->
-    <div id="socialMediaOverlay">
-        <h2>Please wait <span id="timer">15</span> seconds to continue</h2>
-        <button class="redirect-btn" id="redirectButton" disabled>Continue</button>
+    <div id="timer-page" class="timer-container hidden">
+        <h1 id="timer-text">Please wait 15 seconds...</h1>
+        <button id="redirect-btn" class="hidden">Click Here to Continue</button>
     </div>
 
     <script>
-        // Simulated blog post data
-        const blogPosts = [
-            { id: 1, title: "Kajal Agarwal Photos", images: ["https://i.ibb.co/rdbB3kG/470918778-2132713413812214-7356323066113906618-n.jpg"], link: "https://actressphotohd.fun/bollywood/kajal-agarwal-long-hd-images.html" },
-            { id: 2, title: "Random Actress HD", images: ["https://i.ibb.co/WgWdPrF/katrinakaifhots-20231231-p-3269781595320678964-3-3269781591797394858.jpg"], link: "https://actressphotohd.fun/bollywood/random-actress-pic.html" },
-            { id: 3, title: "Dhanashree Verma Long Images", images: ["https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg"], link: "https://actressphotohd.fun/bollywood/dhanashree-verma-long-photos.html" }
+        // Configuration
+        const socialMediaReferrers = ["instagram.com", "twitter.com", "facebook.com", "t.co", "telegram.me"];
+        const randomPosts = [
+            "https://actressphotohd.fun/bollywood/random-actress-pic.html",
+            "https://actressphotohd.fun/bollywood/kajal-agarwal-long-hd-images.html",
+            "https://actressphotohd.fun/bollywood/disha-patani-long-photos.html"
         ];
+        const externalSite = "https://insidecric.com";
 
-        // Display blog posts
-        function displayRecentPosts() {
-            const postsContainer = document.getElementById('recentPosts');
-            blogPosts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                postElement.innerHTML = `
-                    <a href="${post.link}" aria-label="View ${post.title}">
-                        <img src="${post.images[0]}" alt="${post.title}">
-                    </a>
-                    <h3><a href="${post.link}">${post.title}</a></h3>
-                `;
-                postsContainer.appendChild(postElement);
-            });
-        }
-        displayRecentPosts();
+        // Get referral information
+        const referrer = document.referrer;
 
-        // Check Referrer for Social Media
-        const referrer = document.referrer.toLowerCase();
-        const socialMediaSites = ["instagram.com", "facebook.com", "twitter.com", "t.me"];
-        const isFromSocialMedia = socialMediaSites.some(site => referrer.includes(site));
+        // Check if the user came from social media
+        let clickCount = localStorage.getItem("socialMediaClicks") || 0;
 
-        if (isFromSocialMedia) {
-            const overlay = document.getElementById('socialMediaOverlay');
-            const timerElement = document.getElementById('timer');
-            const redirectButton = document.getElementById('redirectButton');
+        function showTimerPage() {
+            document.getElementById("main-content").classList.add("hidden");
+            document.getElementById("timer-page").classList.remove("hidden");
 
-            overlay.classList.add('active');
-            let timeLeft = 15;
+            const timerText = document.getElementById("timer-text");
+            const redirectBtn = document.getElementById("redirect-btn");
+            let countdown = 15;
 
-            const countdown = setInterval(() => {
-                timeLeft--;
-                timerElement.textContent = timeLeft;
-
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    redirectButton.disabled = false;
+            const interval = setInterval(() => {
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    timerText.textContent = "Time is up!";
+                    redirectBtn.classList.remove("hidden");
+                } else {
+                    timerText.textContent = `Please wait ${countdown--} seconds...`;
                 }
             }, 1000);
 
-            redirectButton.addEventListener('click', () => {
-                window.location.href = blogPosts[Math.floor(Math.random() * blogPosts.length)].link;
+            redirectBtn.addEventListener("click", () => {
+                clickCount++;
+                localStorage.setItem("socialMediaClicks", clickCount);
+
+                if (clickCount == 1) {
+                    // Redirect to a random post
+                    const randomPost = randomPosts[Math.floor(Math.random() * randomPosts.length)];
+                    window.location.href = randomPost;
+                } else {
+                    // Redirect to external site on the 3rd click
+                    window.location.href = externalSite;
+                }
             });
+        }
+
+        if (socialMediaReferrers.some(domain => referrer.includes(domain))) {
+            showTimerPage(); // Show the timer page for social media traffic
+        } else {
+            // Load normal blog content for direct traffic
+            document.getElementById("main-content").innerHTML = `
+                <h1>Welcome to Actress Photo HD</h1>
+                <p>Browse our latest collection of actress photos and galleries!</p>
+            `;
         }
     </script>
 </body>
