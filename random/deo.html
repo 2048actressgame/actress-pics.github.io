@@ -3,117 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actress Photo HD</title>
+    <title>My Blog</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
+            padding: 20px;
         }
-
-        .timer-container {
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #333;
+            align-items: center;
             color: white;
-            text-align: center;
-        }
-
-        .timer-container h1 {
             font-size: 24px;
-            margin-bottom: 20px;
         }
-
-        .timer-container button {
-            background-color: #007bff;
-            color: white;
-            border: none;
+        .overlay button {
+            margin-top: 20px;
             padding: 10px 20px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
-            border-radius: 5px;
         }
-
-        .timer-container button:hover {
-            background-color: #0056b3;
-        }
-
-        .hidden {
-            display: none;
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <div id="main-content">
-        <!-- Normal blog content will appear here -->
+    <div id="overlay" class="overlay" style="display: none;">
+        <div id="timer"></div>
+        <button id="redirectButton" style="display: none;">Click Here</button>
     </div>
 
-    <div id="timer-page" class="timer-container hidden">
-        <h1 id="timer-text">Please wait 15 seconds...</h1>
-        <button id="redirect-btn" class="hidden">Click Here to Continue</button>
+    <div class="blog-content">
+        <h1>Welcome to My Blog</h1>
+        <p>This is the main content of the blog. It will be visible to all users, but those coming from social media will see an overlay first.</p>
+        <!-- Add more blog content here -->
     </div>
 
     <script>
-        // Configuration
-        const socialMediaReferrers = ["instagram.com", "twitter.com", "facebook.com", "t.co", "telegram.me"];
-        const randomPosts = [
-            "https://actressphotohd.fun/bollywood/random-actress-pic.html",
-            "https://actressphotohd.fun/bollywood/kajal-agarwal-long-hd-images.html",
-            "https://actressphotohd.fun/bollywood/disha-patani-long-photos.html"
+        const overlay = document.getElementById('overlay');
+        const timerElement = document.getElementById('timer');
+        const redirectButton = document.getElementById('redirectButton');
+
+        const blogPosts = [
+            '/post1',
+            '/post2',
+            '/post3',
+            '/post4',
+            '/post5'
         ];
-        const externalSite = "https://insidecric.com";
 
-        // Get referral information
-        const referrer = document.referrer;
-
-        // Check if the user came from social media
-        let clickCount = localStorage.getItem("socialMediaClicks") || 0;
-
-        function showTimerPage() {
-            document.getElementById("main-content").classList.add("hidden");
-            document.getElementById("timer-page").classList.remove("hidden");
-
-            const timerText = document.getElementById("timer-text");
-            const redirectBtn = document.getElementById("redirect-btn");
-            let countdown = 15;
-
-            const interval = setInterval(() => {
-                if (countdown <= 0) {
-                    clearInterval(interval);
-                    timerText.textContent = "Time is up!";
-                    redirectBtn.classList.remove("hidden");
-                } else {
-                    timerText.textContent = `Please wait ${countdown--} seconds...`;
-                }
-            }, 1000);
-
-            redirectBtn.addEventListener("click", () => {
-                clickCount++;
-                localStorage.setItem("socialMediaClicks", clickCount);
-
-                if (clickCount == 1) {
-                    // Redirect to a random post
-                    const randomPost = randomPosts[Math.floor(Math.random() * randomPosts.length)];
-                    window.location.href = randomPost;
-                } else {
-                    // Redirect to external site on the 3rd click
-                    window.location.href = externalSite;
-                }
-            });
+        function getReferer() {
+            const referer = document.referrer.toLowerCase();
+            if (referer.includes('instagram') || referer.includes('twitter') || referer.includes('facebook')) {
+                return 'social';
+            }
+            return 'direct';
         }
 
-        if (socialMediaReferrers.some(domain => referrer.includes(domain))) {
-            showTimerPage(); // Show the timer page for social media traffic
-        } else {
-            // Load normal blog content for direct traffic
-            document.getElementById("main-content").innerHTML = `
-                <h1>Welcome to Actress Photo HD</h1>
-                <p>Browse our latest collection of actress photos and galleries!</p>
-            `;
+        function startTimer(seconds, callback) {
+            overlay.style.display = 'flex';
+            let remainingSeconds = seconds;
+
+            const intervalId = setInterval(() => {
+                timerElement.textContent = remainingSeconds;
+                remainingSeconds--;
+
+                if (remainingSeconds < 0) {
+                    clearInterval(intervalId);
+                    callback();
+                }
+            }, 1000);
+        }
+
+        function showRedirectButton() {
+            timerElement.style.display = 'none';
+            redirectButton.style.display = 'block';
+        }
+
+        function redirectToRandomPost() {
+            const randomPost = blogPosts[Math.floor(Math.random() * blogPosts.length)];
+            window.location.href = randomPost;
+        }
+
+        function redirectToExternalSite() {
+            window.location.href = 'https://insidecric.com';
+        }
+
+        const referer = getReferer();
+        const pageVisits = parseInt(localStorage.getItem('pageVisits') || '0');
+
+        if (referer === 'social') {
+            if (pageVisits === 0) {
+                startTimer(15, () => {
+                    showRedirectButton();
+                    redirectButton.addEventListener('click', () => {
+                        localStorage.setItem('pageVisits', '1');
+                        redirectToRandomPost();
+                    });
+                });
+            } else if (pageVisits === 1) {
+                startTimer(15, () => {
+                    localStorage.removeItem('pageVisits');
+                    redirectToExternalSite();
+                });
+            }
         }
     </script>
 </body>
