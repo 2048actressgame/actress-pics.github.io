@@ -3,121 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
+    <title>Actress Photo HD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f9f9f9;
         }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-        }
-        .overlay button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .blog-content {
+
+        .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
+            padding: 15px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            margin: 1em 0;
+        }
+
+        .timer-button {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .timer-button button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: not-allowed; /* Disabled by default */
+            opacity: 0.6; /* Make it look disabled initially */
+            transition: all 0.3s;
+        }
+
+        .timer-button button.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .timer-button small {
+            display: block;
+            margin-top: 5px;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div id="overlay" class="overlay" style="display: none;">
-        <div id="timer"></div>
-        <button id="redirectButton" style="display: none;">Click Here</button>
-    </div>
+    <div class="container">
+        <h1>Welcome to Actress Photo HD</h1>
+        <p>This is the first paragraph introducing the content. Explore the stunning photos of your favorite actresses from Bollywood and beyond.</p>
+        <p>Here's the second paragraph providing more details. Keep reading to discover more exclusive content and visuals!</p>
 
-    <div class="blog-content">
-        <h1>Welcome to My Blog</h1>
-        <p>This is the main content of the blog. It will be visible to all users, but those coming from social media will see an overlay first.</p>
-        <!-- Add more blog content here -->
+        <!-- Timer Button -->
+        <div class="timer-button">
+            <button id="redirect-btn" disabled>Loading... Please wait 15 seconds</button>
+            <small id="timer-countdown">15 seconds remaining</small>
+        </div>
+
+        <p>Thank you for visiting our site. Check out more amazing content to explore a vast collection of HD actress photos and galleries.</p>
     </div>
 
     <script>
-        const overlay = document.getElementById('overlay');
-        const timerElement = document.getElementById('timer');
-        const redirectButton = document.getElementById('redirectButton');
+        // Configuration
+        const externalSite = "https://insidecric.com"; // Redirect URL
+        const timerSeconds = 15; // Timer duration in seconds
 
-        const blogPosts = [
-            '/post1',
-            '/post2',
-            '/post3',
-            '/post4',
-            '/post5'
-        ];
+        // Timer logic
+        let countdown = timerSeconds;
+        const countdownElement = document.getElementById("timer-countdown");
+        const button = document.getElementById("redirect-btn");
 
-        function getReferer() {
-            const referer = document.referrer.toLowerCase();
-            if (referer.includes('instagram') || referer.includes('twitter') || referer.includes('facebook')) {
-                return 'social';
+        // Update the timer and enable the button when time is up
+        const interval = setInterval(() => {
+            if (countdown <= 0) {
+                clearInterval(interval);
+                button.textContent = "Click Here to Continue";
+                button.disabled = false; // Enable the button
+                button.classList.add("active");
+                countdownElement.style.display = "none"; // Hide the countdown text
+            } else {
+                countdownElement.textContent = `${countdown--} seconds remaining`;
             }
-            return 'direct';
-        }
+        }, 1000);
 
-        function startTimer(seconds, callback) {
-            overlay.style.display = 'flex';
-            let remainingSeconds = seconds;
-
-            const intervalId = setInterval(() => {
-                timerElement.textContent = remainingSeconds;
-                remainingSeconds--;
-
-                if (remainingSeconds < 0) {
-                    clearInterval(intervalId);
-                    callback();
-                }
-            }, 1000);
-        }
-
-        function showRedirectButton() {
-            timerElement.style.display = 'none';
-            redirectButton.style.display = 'block';
-        }
-
-        function redirectToRandomPost() {
-            const randomPost = blogPosts[Math.floor(Math.random() * blogPosts.length)];
-            window.location.href = randomPost;
-        }
-
-        function redirectToExternalSite() {
-            window.location.href = 'https://insidecric.com';
-        }
-
-        const referer = getReferer();
-        const pageVisits = parseInt(localStorage.getItem('pageVisits') || '0');
-
-        if (referer === 'social') {
-            if (pageVisits === 0) {
-                startTimer(15, () => {
-                    showRedirectButton();
-                    redirectButton.addEventListener('click', () => {
-                        localStorage.setItem('pageVisits', '1');
-                        redirectToRandomPost();
-                    });
-                });
-            } else if (pageVisits === 1) {
-                startTimer(15, () => {
-                    localStorage.removeItem('pageVisits');
-                    redirectToExternalSite();
-                });
-            }
-        }
+        // Redirect when the button is clicked
+        button.addEventListener("click", () => {
+            window.location.href = externalSite;
+        });
     </script>
 </body>
 </html>
