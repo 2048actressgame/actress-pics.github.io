@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actress Photo HD</title>
-          <link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Random Actress Hot Images: Explore a curated collection of stunning and sizzling high-definition photos of popular actresses. Perfect for fans and admirers.">
+<meta name="keywords" content="Random Actress, Hot Actress Images, Bollywood Actress Photos, Celebrity Hot Wallpapers, Actress HD Images">
+<meta property="og:url" content="https://actressphotohd.fun/bollywood/random-bollywood-actress-photos.html" />
+<meta property="og:title" content="Random Actress Hot Images" />
+<meta property="og:site_name" content="Random Actress Hot Photos - Stunning Collection" />
+<meta property="og:description" content="Discover a stunning collection of high-definition hot photos of popular actresses. Perfect for Bollywood fans seeking premium quality images.">
+<meta property="og:type" content="website" />
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://actressphotohd.fun/bollywood/random-bollywood-actress-photos.html">
+
+<title>Random Actress Hot Images</title>
+
+      <link rel="stylesheet" href="styles.css">
 
     <style>
         * {
@@ -147,9 +158,11 @@
     </style>
 </head>
 <body>
-<div id="header"></div>
+    <div id="header"></div>
     <div class="gallery" id="gallery"></div>
-<article>
+           <article>
+
+
     <div class="modal" id="imageModal">
         <div class="modal-content">
             <button class="close-btn">&times;</button>
@@ -172,63 +185,69 @@
 
   <script src="script.js"></script>
     <script>
-        const images = [
-            "https://i.ibb.co/4VX1ZLK/472535506-1684556342110254-5688901636572304114-n.jpg",
-            "https://i.ibb.co/7KrLFKj/472081877-963090675882315-1309508867102686312-n.jpg",
-            "https://i.ibb.co/0Mt9Vsm/472118404-488959980477048-8769825033847635751-n.jpg",
-            "https://i.ibb.co/5jTxMYd/472317815-937955034966853-5739143210003712053-n.jpg",
-            "https://i.ibb.co/NmQSFpj/472729378-951862070213823-5819684937258376206-n.jpg",
-            "https://i.ibb.co/r5zvM7H/472115643-1107784063937264-4669810384973237215-n.jpg",
-            "https://i.ibb.co/J285019/472699141-1303419767478695-8740937037825688784-n.jpg",
-            "https://i.ibb.co/7RrPCh8/472480252-568006199459855-6106588305992003446-n.jpg"
-        ];
+    const images = [
+         { "url": "https://i.ibb.co/rGWfMjF/actress-bold-club-11-118.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/M6jGzk2/actress-bold-club-11-117.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/gZcYC3x/actress-bold-club-11-116.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/tLBLB1Y/actress-bold-club-11-115.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/w0M8ym8/actress-bold-club-11-114.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/VgjX36L/actress-bold-club-11-113.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/KxSkw4x/actress-bold-club-11-112.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/JcJHJLs/actress-bold-club-11-111.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/gW37XCz/actress-bold-club-11-110.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/PtbgZCs/actress-bold-club-11-109.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/Pt64DR7/actress-bold-club-11-108.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/PYVvJZk/actress-bold-club-11-107.jpg", "alt": "south Indian hot actresses" },
+    { "url": "https://i.ibb.co/PmJFGsQ/actress-bold-club-11-106.jpg", "alt": "south Indian hot actresses" }
+];
 
-        const gallery = document.getElementById('gallery');
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalDownloadBtn = document.getElementById('modalDownloadBtn');
-        const timerOverlay = document.getElementById('timerOverlay');
-        const countdownElement = document.getElementById('countdown');
-        let downloadTimeout;
-        let currentImageUrl;
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+    const timerOverlay = document.getElementById('timerOverlay');
+    const countdownElement = document.getElementById('countdown');
+    let downloadTimeout;
+    let currentImageUrl;
 
-        images.forEach(imageUrl => {
-            const container = document.createElement('div');
-            container.className = 'image-container';
+    images.forEach(image => {
+        const container = document.createElement('div');
+        container.className = 'image-container';
 
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.className = 'gallery-image';
-            img.alt = 'Gallery Image';
+        const img = document.createElement('img');
+        img.src = image.url;
+        img.className = 'gallery-image';
+        img.alt = image.alt; // Add the alt text here
 
-            const downloadBtn = document.createElement('button');
-            downloadBtn.className = 'download-btn';
-            downloadBtn.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Download
-            `;
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'download-btn';
+        downloadBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download
+        `;
 
-            container.appendChild(img);
-            container.appendChild(downloadBtn);
-            gallery.appendChild(container);
+        container.appendChild(img);
+        container.appendChild(downloadBtn);
+        gallery.appendChild(container);
 
-            const showModal = (e) => {
-                modal.style.display = 'flex';
-                modalImage.src = imageUrl;
-                currentImageUrl = imageUrl;
-            };
+        const showModal = (e) => {
+            modal.style.display = 'flex';
+            modalImage.src = image.url;
+            modalImage.alt = image.alt; // Update modal image alt text
+            currentImageUrl = image.url;
+        };
 
-            img.addEventListener('click', showModal);
-            downloadBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                downloadImage(imageUrl);
-            });
+        img.addEventListener('click', showModal);
+        downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            downloadImage(image.url);
         });
-
+    });
+    
         function startDownloadTimer() {
             let countdown = 7;
             timerOverlay.style.display = 'flex';
@@ -248,6 +267,7 @@
 
             downloadTimeout = timer;
         }
+
 
         function downloadImage(url) {
             fetch(url)
