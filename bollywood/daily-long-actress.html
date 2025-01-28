@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Actress Long </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .timer {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #d9534f;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to check referrer
+            function isFromSocialMedia() {
+                const referrer = document.referrer;
+                const socialMediaDomains = ["facebook.com", "twitter.com", "instagram.com", "linkedin.com"];
+
+                return socialMediaDomains.some(domain => referrer.includes(domain));
+            }
+
+            const socialRedirectContent = document.getElementById("social-redirect");
+            const normalContent = document.getElementById("normal-content");
+
+            if (isFromSocialMedia()) {
+                normalContent.classList.add("hidden");
+                let timer = 15;
+                const timerDisplay = document.getElementById("timer-display");
+                const clickButton = document.getElementById("click-button");
+                const getFileButton = document.getElementById("get-file-button");
+
+                const interval = setInterval(() => {
+                    timer--;
+                    timerDisplay.textContent = timer;
+
+                    if (timer <= 0) {
+                        clearInterval(interval);
+                        clickButton.disabled = false;
+                        clickButton.classList.remove("hidden");
+                    }
+                }, 1000);
+
+                clickButton.addEventListener("click", function () {
+                    getFileButton.classList.remove("hidden");
+                });
+            } else {
+                socialRedirectContent.classList.add("hidden");
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <div id="normal-content">
+        <h1>Welcome to My Blog</h1>
+        <p>This is a regular blog post. You are reading this because you accessed the site directly or through search engines.</p>
+        <p>Enjoy reading the content without any interruptions!</p>
+    </div>
+
+    <div id="social-redirect" class="hidden">
+        <h1>Special Access Blog</h1>
+        <p>You came from social media! We have a special article for you.</p>
+        <p>Please wait <span id="timer-display" class="timer">15</span> seconds.</p>
+        <button id="click-button" class="button hidden" disabled>Click Here</button>
+        <p id="get-file-button" class="hidden">
+            <a href="/download-page" class="button">Get File</a>
+        </p>
+    </div>
+
+</body>
+</html>
