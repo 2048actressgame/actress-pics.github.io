@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oviya Hot Images</title>
+          <link rel="stylesheet" href="styles.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .gallery {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .download-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+        }
+
+        .image-container:hover .download-btn {
+            opacity: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #16a34a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            cursor: pointer;
+        }
+
+        .close-btn, .modal-download-btn {
+            position: absolute;
+            top: -40px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .close-btn {
+            right: 0;
+        }
+
+        .modal-download-btn {
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #22c55e;
+            border-radius: 5px;
+        }
+
+        .modal-download-btn:hover {
+            background-color: #16a34a;
+        }
+
+        .timer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div id="header"></div>
+<h1>Milli Bobby Brown Images Hot </h1>
+    <div class="gallery" id="gallery"></div>
+<article>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <button class="modal-download-btn" id="modalDownloadBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+            </button>
+            <img src="/placeholder.svg" alt="Modal Image" class="modal-image" id="modalImage">
+            <div class="timer-overlay" id="timerOverlay">
+                Downloading in <span id="countdown">7</span>s...
+            </div>
+        </div>
+    </div>
+</article>
+    <div id="footer"></div> <!-- Footer will load here -->
+<script>
+    const images = [
+         { url: "https://i.ibb.co/BV2cHTZv/476622193-2848407508652202-3170556814140280148-n.jpg", alt: "Elegant portrait with a natural vibe" },
+    { url: "https://i.ibb.co/9kJfpGfg/476626440-2293309654385848-183128798210935698-n.jpg", alt: "Chic and stylish pose" },
+    { url: "https://i.ibb.co/N20G75pB/476624754-1351652506192557-2615931966824779401-n.jpg", alt: "Beautiful candid expression" },
+    { url: "https://i.ibb.co/ty0Ywnv/476233874-965937215482250-9114694606014738401-n.jpg", alt: "Sophisticated look with a serene background" },
+    { url: "https://i.ibb.co/Fb7nFxtB/476915531-1153180155811153-8422071948120908473-n.jpg", alt: "Gorgeous smile with bright colors" },
+    { url: "https://i.ibb.co/VpHgmchm/476877113-9981731665187843-7935844240955125943-n.jpg", alt: "Captivating close-up shot" },
+    { url: "https://i.ibb.co/23GKBVTF/476471968-3788690071276901-2787209323011175951-n.jpg", alt: "Stylish pose with artistic lighting" },
+    { url: "https://i.ibb.co/4R19HpPH/476410341-3642862212526361-8838554958291553048-n.jpg", alt: "Charming pose with soft lighting" },
+    { url: "https://i.ibb.co/NnfD8Zgk/477320958-1607476196800041-5585905689745650630-n.jpg", alt: "Striking outdoor shot with vibrant hues" },
+    { url: "https://i.ibb.co/3Y5JHwMY/477355140-1267255044571487-4224718895721085845-n.jpg", alt: "Relaxed and confident pose in natural light" }
+];
+
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+    const timerOverlay = document.getElementById('timerOverlay');
+    const countdownElement = document.getElementById('countdown');
+    let downloadTimeout;
+    let currentImageUrl;
+
+    images.forEach(image => {
+        const container = document.createElement('div');
+        container.className = 'image-container';
+
+        const img = document.createElement('img');
+        img.src = image.url;
+        img.className = 'gallery-image';
+        img.alt = image.alt; // Add the alt text here
+
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'download-btn';
+        downloadBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download
+        `;
+
+        container.appendChild(img);
+        container.appendChild(downloadBtn);
+        gallery.appendChild(container);
+
+        const showModal = (e) => {
+            modal.style.display = 'flex';
+            modalImage.src = image.url;
+            modalImage.alt = image.alt; // Update modal image alt text
+            currentImageUrl = image.url;
+        };
+
+        img.addEventListener('click', showModal);
+        downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            downloadImage(image.url);
+        });
+    });
+
+    // ... (rest of the JavaScript code remains unchanged) ...
+    
+    function startDownloadTimer() {
+            let countdown = 7;
+            timerOverlay.style.display = 'flex';
+            countdownElement.textContent = countdown;
+
+            const timer = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    downloadImage(currentImageUrl);
+                    timerOverlay.style.display = 'none';
+                    modal.style.display = 'none';
+                }
+            }, 1000);
+
+            downloadTimeout = timer;
+        }
+
+        function downloadImage(url) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = url.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(blobUrl);
+                })
+                .catch(error => console.error('Download failed:', error));
+        }
+
+        modalImage.addEventListener('click', () => {
+            startDownloadTimer();
+        });
+
+        modalDownloadBtn.addEventListener('click', () => {
+            downloadImage(currentImageUrl);
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            modal.style.display = 'none';
+            timerOverlay.style.display = 'none';
+            if (downloadTimeout) {
+                clearTimeout(downloadTimeout);
+            }
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                timerOverlay.style.display = 'none';
+                if (downloadTimeout) {
+                    clearTimeout(downloadTimeout);
+                }
+            }
+        });
+</script>
+</body>
+</html>
